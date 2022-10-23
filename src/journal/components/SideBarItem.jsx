@@ -30,7 +30,7 @@ export const SideBarItem = ( { title, body, id, date, imageURLs = [] } ) => {
       <ListItemIcon>
         <TurnedInNot/>
       </ListItemIcon>
-      <Grid container>
+      <Grid container direction="column">
         <ListItemText primary={ newTitle }/>
         <ListItemText secondary={ body }/>
       </Grid>
