@@ -22,12 +22,6 @@ export const AppRouter = () => {
 
     <Route path='/*' element={ <Navigate to="/auth/login"/> } />
 
-    { /* Login y Regis */ }
-    { /* <Route path='/auth/*' element={ <AuthRoutes/> } /> */ }
-
-    { /* App */ }
-    { /* <Route path='/*' element={ <JournalRoutes/> } /> */ }
-
     </Routes>
 
   );

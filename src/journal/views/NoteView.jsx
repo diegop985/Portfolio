@@ -52,21 +52,34 @@ export const NoteView = () => {
 
   return (
       <Grid className="animate__animated animate__fadeIn animate__faster" container direction="row" justifyContent="space-between" alignItems="center" sx={ { mb: 1 } }>
-        <Grid item>
-          <Typography fontSize={ 39 } fontWeight="light">{ dateString }</Typography>
-        </Grid>
+        <Grid
+          container
+          justifyContent="space-between"
+          alignItems="center"
+          sx={ { backgroundColor: 'red', display: 'flex', flexWrap: 'no-wrap' } }>
+          <Grid item>
+            <Typography fontSize={ 20 } fontWeight="light">{ dateString }</Typography>
+          </Grid>
 
-        <input ref={ fileInputRef } type="file" multiple onChange={ onFileInputchange } style={ { display: 'none' } }/>
+          <input ref={ fileInputRef } type="file" multiple onChange={ onFileInputchange } style={ { display: 'none' } }/>
 
-        <IconButton onClick={ () => fileInputRef.current.click() } color='primary' disabled={ isSaving }>
-          <UploadOutlined/>
-        </IconButton>
+          <Grid container justifyContent="end">
+          <Button onClick={ onDelete } sx={ { mt: 2 } } color="error">
+              <DeleteOutline/>
+              Borrar
+          </Button>
 
-      <Grid item>
-        <Button disabled={ isSaving } onClick={ onSaveNote } color="primary" sx={ { padding: 2 } }>
-          <SaveOutlined sx={ { fontSize: 30, mr: 1 } }/>
-          Guardar
-        </Button>
+          </Grid>
+          <IconButton onClick={ () => fileInputRef.current.click() } color='primary' disabled={ isSaving }>
+            <UploadOutlined/>
+          </IconButton>
+
+          <Grid item>
+            <Button disabled={ isSaving } onClick={ onSaveNote } color="primary" sx={ { padding: 2 } }>
+              <SaveOutlined sx={ { fontSize: 30, mr: 1 } }/>
+              Guardar
+            </Button>
+          </Grid>
       </Grid>
 
       <Grid container>
@@ -95,14 +108,6 @@ export const NoteView = () => {
           value={ body }
           onChange={ onInputChange }
         />
-      </Grid>
-
-      <Grid container justifyContent="end">
-        <Button onClick={ onDelete } sx={ { mt: 2 } } color="error">
-            <DeleteOutline/>
-            Borrar
-        </Button>
-
       </Grid>
 
       <ImageGallery images={ imageURLs }/>

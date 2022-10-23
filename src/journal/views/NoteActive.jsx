@@ -13,24 +13,24 @@ export const NoteActive = () => {
           <Typography fontSize={ 39 } fontWeight="light">{ date }</Typography>
         </Grid>
 
-      <Grid item>
-        <Button color="primary" sx={ { padding: 2 } }>
-          <SaveOutlined sx={ { fontSize: 30, mr: 1 } }/>
-          Guardar
-        </Button>
-      </Grid>
+        <Grid item>
+          <Button color="primary" sx={ { padding: 2 } }>
+            <SaveOutlined sx={ { fontSize: 30, mr: 1 } }/>
+            Guardar
+          </Button>
+        </Grid>
 
-      <Grid container direction="column">
-        <Typography fontSize={ 39 } fontWeight="bold"
-          sx={ { border: 'none', mb: 1, mt: 2 } }
-        >{ title }</Typography>
+        <Grid container direction="column">
+          <Typography fontSize={ 39 } fontWeight="bold"
+            sx={ { border: 'none', mb: 1, mt: 2 } }
+          >{ title }</Typography>
 
-        <Typography fontSize={ 35 } fontWeight="light"
-          sx={ { border: 'none', mb: 6 } }
-        >{ body }</Typography>
-      </Grid>
+          <Typography fontSize={ 35 } fontWeight="light"
+            sx={ { border: 'none', mb: 6 } }
+          >{ body }</Typography>
+        </Grid>
 
-      <ImageGallery/>
+        <ImageGallery/>
 
       </Grid>
   );
