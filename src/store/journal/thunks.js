@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
 import { fileUpload } from '../../helpers/fileUpload';
@@ -8,13 +9,11 @@ export const startNewNote = () => {
   return async ( dispatch, getState ) => {
     dispatch( savingNewNote() );
 
-    console.log( 'start new note' );
-
     const { uid } = getState().auth;
 
     const newNote = {
-      title: 'A',
-      body: 'b',
+      title: '',
+      body: '',
       imageURLs: [],
       date: new Date().getTime(),
     };
@@ -47,7 +46,6 @@ export const startSaveNote = () => {
 
     const noteToFireStore = { ...active };
     delete noteToFireStore.id;
-    console.log( noteToFireStore );
 
     const docRef = doc( FirebaseDB, `${uid}/journal/notes/${active.id}` );
     await setDoc( docRef, noteToFireStore, { merge: true } );
@@ -68,8 +66,6 @@ export const startUploadingFiles = ( files = [] ) => {
 
     const photosUrls = await Promise.all( fileUploadPromises );
 
-    console.log( photosUrls );
-
     dispatch( setPhotosToActiveNote( photosUrls ) );
   };
 };
@@ -80,12 +76,8 @@ export const startDeletingNote = () => {
     const { uid } = getState().auth;
     const { active } = getState().journal;
 
-    console.log( { uid, active } );
-
     const docRef = doc( FirebaseDB, `${uid}/journal/notes/${active.id}` );
     const res = await deleteDoc( docRef );
-
-    console.log( res );
 
     dispatch( deleteNoteById( active.id ) );
   };

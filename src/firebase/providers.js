@@ -19,8 +19,6 @@ export const signInWithGoogle = async () => {
       uid,
     };
   } catch ( error ) {
-    console.log( error );
-
     const errorCode = error.code;
     const errorMessage = error.message;
     const email = error.customData.email;
@@ -37,7 +35,6 @@ export const registerUserEmail = async ( { email, password, displayName } ) => {
   try {
     const resp = await createUserWithEmailAndPassword( FirebaseAuth, email, password );
     const { uid, photoURL } = resp.user;
-    console.log( resp );
 
     await updateProfile( FirebaseAuth.currentUser, { displayName } );
 

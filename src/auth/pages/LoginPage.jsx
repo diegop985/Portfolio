@@ -25,14 +25,10 @@ export const LoginPage = () => {
   const onSubmit = ( event ) => {
     event.preventDefault();
 
-    console.log( { email } );
-    console.log( { password } );
-
     dispatch( startLoginWithEmail( { email, password } ) );
   };
 
   const onGoogleSignIn = () => {
-    console.log( 'Sign In with Google :D ' );
     dispatch( startGoogleSignIn() );
   };
 
