@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { async } from '@firebase/util';
 import { signInWithGoogle, registerUserEmail, loginWithEmail, logOutFirebase } from '../../firebase/providers';
+import { clearNoteLogOut } from '../journal/journalSlice';
 import { checkingCredentials, logIn, logOut } from './authSlice';
 
 export const checkingAuthentication = ( email, password ) => {
@@ -48,7 +49,7 @@ export const startLoginWithEmail = ( { email: correo, password } ) => {
 export const startLogOutFirebase = () => {
   return async ( dispatch ) => {
     await logOutFirebase();
-
+    dispatch( clearNoteLogOut() );
     dispatch( logOut( { } ) );
   };
 };

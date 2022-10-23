@@ -1,4 +1,4 @@
-import { SaveOutlined, UploadOutlined } from '@mui/icons-material';
+import { DeleteOutline, SaveOutlined, UploadOutlined } from '@mui/icons-material';
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,13 +6,16 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
 import { useForm } from '../../hooks/useForm';
 import { setActiveNote } from '../../store/journal/journalSlice';
-import { startSaveNote, startUploadingFiles } from '../../store/journal/thunks';
+import { startDeletingNote, startSaveNote, startUploadingFiles } from '../../store/journal/thunks';
 import { ImageGallery } from '../components';
 
 export const NoteView = () => {
   const dispatch = useDispatch();
+
   const { active, messageSaved, isSaving } = useSelector( state => state.journal );
-  const { body, title, date, onInputChange, formState } = useForm( active );
+
+  const { body, title, date, onInputChange, imageURLs, formState } = useForm( active );
+
   const dateString = useMemo( () => {
     const newDate = new Date( date );
     return newDate.toUTCString();
@@ -23,7 +26,10 @@ export const NoteView = () => {
   }, [ formState ] );
 
   useEffect( () => {
-    if ( messageSaved.length > 0 ) {
+    if ( messageSaved === 'deleted' ) {
+      Swal.fire( 'Deleted Succesfully', '', 'info' );
+    }
+    if ( ( messageSaved.length > 0 ) && ( messageSaved !== 'deleted' ) ) {
       Swal.fire( `${messageSaved} `, ' <br/> Updated Succesfully', 'success' );
     }
   }, [ messageSaved ] );
@@ -33,12 +39,13 @@ export const NoteView = () => {
   };
 
   const onFileInputchange = ( { target } ) => {
-    console.log( target.files );
-
     if ( target.files === 0 ) return;
-    console.log( 'Uploading Files' );
 
     dispatch( startUploadingFiles( target.files ) );
+  };
+
+  const onDelete = () => {
+    dispatch( startDeletingNote() );
   };
 
   const fileInputRef = useRef();
@@ -90,7 +97,15 @@ export const NoteView = () => {
         />
       </Grid>
 
-      <ImageGallery/>
+      <Grid container justifyContent="end">
+        <Button onClick={ onDelete } sx={ { mt: 2 } } color="error">
+            <DeleteOutline/>
+            Borrar
+        </Button>
+
+      </Grid>
+
+      <ImageGallery images={ imageURLs }/>
 
       </Grid>
   );

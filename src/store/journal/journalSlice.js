@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const journalSlice = createSlice( {
-
   name: 'journal',
   initialState: {
     isSaving: false,
@@ -42,8 +41,17 @@ export const journalSlice = createSlice( {
       state.active.imageURLs = [ ...state.active.imageURLs, ...action.payload ];
       state.isSaving = false;
     },
+    clearNoteLogOut: ( state ) => {
+      state.isSaving = false;
+      state.messageSaved = '';
+      state.notes = [];
+      state.active = null;
+    },
     deleteNoteById: ( state, action ) => {
-
+      state.isSaving = false;
+      state.active = null;
+      state.messageSaved = 'deleted';
+      state.notes = state.notes.filter( note => note.id !== action.payload ? note.id : '' );
     },
   },
 } );
@@ -51,11 +59,12 @@ export const journalSlice = createSlice( {
 // Action creators are generated for each case reducer function
 export const {
   addNewEmptyNote,
-  setActiveNote,
-  setNotes,
-  setSaving,
-  updatesNotes,
+  clearNoteLogOut,
   deleteNoteById,
   savingNewNote,
+  setActiveNote,
+  setNotes,
   setPhotosToActiveNote,
+  setSaving,
+  updatesNotes,
 } = journalSlice.actions;

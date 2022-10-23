@@ -1,8 +1,8 @@
-import { collection, doc, setDoc } from 'firebase/firestore/lite';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
 import { fileUpload } from '../../helpers/fileUpload';
 import { loadNotes } from '../../helpers/loadNotes';
-import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updatesNotes } from './journalSlice';
+import { addNewEmptyNote, deleteNoteById, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updatesNotes } from './journalSlice';
 
 export const startNewNote = () => {
   return async ( dispatch, getState ) => {
@@ -71,5 +71,22 @@ export const startUploadingFiles = ( files = [] ) => {
     console.log( photosUrls );
 
     dispatch( setPhotosToActiveNote( photosUrls ) );
+  };
+};
+
+export const startDeletingNote = () => {
+  return async ( dispatch, getState ) => {
+    dispatch( setSaving() );
+    const { uid } = getState().auth;
+    const { active } = getState().journal;
+
+    console.log( { uid, active } );
+
+    const docRef = doc( FirebaseDB, `${uid}/journal/notes/${active.id}` );
+    const res = await deleteDoc( docRef );
+
+    console.log( res );
+
+    dispatch( deleteNoteById( active.id ) );
   };
 };
