@@ -12,7 +12,7 @@ export const JounalLayout = ( { children } ) => {
 
       <NavBar drawerWidth={ drawerWidth }/>
 
-      <SideBar drawerWidth={ drawerWidth }/>
+      <SideBar xs={ { display: 'none' } } drawerWidth={ drawerWidth }/>
 
       <Box
           component="main"

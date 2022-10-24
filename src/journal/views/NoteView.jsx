@@ -1,5 +1,5 @@
 import { DeleteOutline, SaveOutlined, UploadOutlined } from '@mui/icons-material';
-import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -18,7 +18,10 @@ export const NoteView = () => {
 
   const dateString = useMemo( () => {
     const newDate = new Date( date );
-    return newDate.toUTCString();
+    const dTime = newDate.toLocaleTimeString().replace( /(.*)\D\d+/, '$1' );
+    const options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateFormated = ` ${newDate.toLocaleDateString( 'en-US', options )} ${dTime} `;
+    return dateFormated;
   }, [ date ] );
 
   useEffect( () => {
@@ -54,31 +57,46 @@ export const NoteView = () => {
       <Grid className="animate__animated animate__fadeIn animate__faster" container direction="row" justifyContent="space-between" alignItems="center" sx={ { mb: 1 } }>
         <Grid
           container
-          justifyContent="space-between"
           alignItems="center"
-          sx={ { backgroundColor: 'red', display: 'flex', flexWrap: 'no-wrap' } }>
-          <Grid item>
-            <Typography fontSize={ 20 } fontWeight="light">{ dateString }</Typography>
+          direction="row"
+          justifyContent="space-between"
+          sx={ { mb: 3 } }
+          >
+
+          <Grid item sm={ 12 } md={ 6 }>
+              <Typography fontSize={ '1.2rem' } fontWeight="light">{ dateString }</Typography>
           </Grid>
 
-          <input ref={ fileInputRef } type="file" multiple onChange={ onFileInputchange } style={ { display: 'none' } }/>
+          <Grid item sm={ 12 } md={ 6 } lg={ 6 } >
+            <Grid container
+                  alignItems="center"
+                  direction="row"
+                  justifyContent="flex-start"
+                  >
 
-          <Grid container justifyContent="end">
-          <Button onClick={ onDelete } sx={ { mt: 2 } } color="error">
-              <DeleteOutline/>
-              Borrar
-          </Button>
+            <input ref={ fileInputRef } type="file" multiple onChange={ onFileInputchange } style={ { display: 'none' } }/>
 
-          </Grid>
-          <IconButton onClick={ () => fileInputRef.current.click() } color='primary' disabled={ isSaving }>
-            <UploadOutlined/>
-          </IconButton>
+            <Grid item md={ 3 }>
+              <Button onClick={ onDelete } disabled={ isSaving } color="error">
+                <DeleteOutline/>
+                <Box sx={ { display: { sm: 'none', md: 'block' } } }><Typography>Borrar</Typography></Box>
+              </Button>
+            </Grid>
 
-          <Grid item>
-            <Button disabled={ isSaving } onClick={ onSaveNote } color="primary" sx={ { padding: 2 } }>
-              <SaveOutlined sx={ { fontSize: 30, mr: 1 } }/>
-              Guardar
-            </Button>
+            <Grid item md={ 5 }>
+              <Button onClick={ () => fileInputRef.current.click() } color='primary' disabled={ isSaving } sx={ { padding: 2 } }>
+                <UploadOutlined/>
+                <Box sx={ { display: { sm: 'none', md: 'block' } } }><Typography>Upload Image</Typography></Box>
+              </Button>
+            </Grid>
+
+            <Grid item md={ 3 }>
+                <Button disabled={ isSaving } onClick={ onSaveNote } color="primary" sx={ { padding: 2 } }>
+                <SaveOutlined />
+                <Box sx={ { display: { sm: 'none', md: 'block' } } }><Typography>Guardar</Typography></Box>
+              </Button>
+            </Grid>
+            </Grid>
           </Grid>
       </Grid>
 

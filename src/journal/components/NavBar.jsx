@@ -3,12 +3,17 @@ import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
 import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { startLogOutFirebase } from '../../store/auth/thunks';
+import { setOpen } from '../../store/sidebar/sideBarSlice';
 
 export const NavBar = ( { drawerWith = 240 } ) => {
   const dispatch = useDispatch();
 
   const onLogOut = () => {
     dispatch( startLogOutFirebase() );
+  };
+
+  const openSideBar = () => {
+    dispatch( setOpen() );
   };
 
   return (
@@ -22,6 +27,7 @@ export const NavBar = ( { drawerWith = 240 } ) => {
             color="inherit"
             edge="start"
             sx={ { mr: 2, display: { sm: 'none' } } }
+            onClick={ openSideBar }
           >
           <MenuOutlined/>
         </IconButton>
