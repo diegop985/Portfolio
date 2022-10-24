@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
+import { cleanErrorMessage } from '../../store/auth/authSlice';
 import { startCreatingUserWithEmail } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout/AuthLayout';
 
@@ -37,13 +38,17 @@ export const RegisterPage = () => {
     dispatch( startCreatingUserWithEmail( formState ) );
   };
 
+  const cleanError = () => {
+    dispatch( cleanErrorMessage() );
+  };
+
   return (
     <AuthLayout title='Create an account'>
 
       <form onSubmit={ onSubmit } className="animate__animated animate__fadeIn animate__faster">
           <Grid container>
 
-          <Grid item xs={ 12 } md={ 6 } sx={ { mt: 2 } }>
+          <Grid item xs={ 12 } sx={ { mt: 2 } }>
             <TextField
             label="Name"
             type="text"
@@ -57,7 +62,7 @@ export const RegisterPage = () => {
             />
           </Grid>
 
-          <Grid item xs={ 12 } md={ 6 } sx={ { mt: 2 } }>
+          <Grid item xs={ 12 }sx={ { mt: 2 } }>
             <TextField
             label="Email"
             type="email"
@@ -71,7 +76,7 @@ export const RegisterPage = () => {
             />
           </Grid>
 
-          <Grid item xs={ 12 } md={ 6 } sx={ { mt: 2 } } >
+          <Grid item xs={ 12 } sx={ { mt: 2 } } >
             <TextField
             label="Password"
             type="password"
@@ -87,11 +92,11 @@ export const RegisterPage = () => {
 
           <Grid container spacing={ 2 } sx={ { mb: 2, mt: 1 } }>
 
-            <Grid item xs={ 12 } sm={ 6 } display={ errorMessage ? '' : 'none' }>
+            <Grid item xs={ 12 } display={ errorMessage ? '' : 'none' }>
               <Alert severity='error'>{ errorMessage }</Alert>
             </Grid>
 
-            <Grid item xs={ 12 } sm={ 6 }>
+            <Grid item xs={ 12 } >
               <Button disabled={ isCheckingAuthentication } type='submit' variant="contained" fullWidth>
                 Create Account
               </Button>
@@ -102,7 +107,7 @@ export const RegisterPage = () => {
             <Grid container direction="row" justifyContent="end">
 
               <Typography sx={ { mr: 1 } }>Already Registered?</Typography>
-              <Link component={ RouterLink } to="/auth/login/">
+              <Link onClick={ cleanError } component={ RouterLink } to="/auth/login/">
 
                 Sign in
 

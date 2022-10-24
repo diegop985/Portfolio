@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
+import { cleanErrorMessage } from '../../store/auth/authSlice';
 import { startGoogleSignIn, startLoginWithEmail } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout/AuthLayout';
 
@@ -32,13 +33,17 @@ export const LoginPage = () => {
     dispatch( startGoogleSignIn() );
   };
 
+  const cleanError = () => {
+    dispatch( cleanErrorMessage() );
+  };
+
   return (
     <AuthLayout title='Login'>
 
       <form onSubmit={ onSubmit } className="animate__animated animate__fadeIn animate__faster">
           <Grid container>
 
-          <Grid item xs={ 12 } md={ 6 } sx={ { mt: 2 } }>
+          <Grid item xs={ 12 } md={ 5.8 } sx={ { mt: 2, mr: { md: 1.5 } } } >
             <TextField
             label="Email"
             type="email"
@@ -50,7 +55,7 @@ export const LoginPage = () => {
             />
           </Grid>
 
-          <Grid item xs={ 12 } md={ 6 } sx={ { mt: 2 } } >
+          <Grid item xs={ 12 } md={ 5.8 } sx={ { mt: 2 } } >
             <TextField
             label="Contraseña"
             type="password"
@@ -63,7 +68,7 @@ export const LoginPage = () => {
           </Grid>
 
           <Grid container>
-            <Grid item xs={ 12 } sm={ 6 } display={ errorMessage ? '' : 'none' } sx={ { mt: 1 } }>
+            <Grid item xs={ 12 } display={ errorMessage ? '' : 'none' } sx={ { mt: 1 } }>
               <Alert severity='error'>{ errorMessage }</Alert>
             </Grid>
           </Grid>
@@ -86,7 +91,7 @@ export const LoginPage = () => {
 
             <Grid container direction="row" justifyContent="end">
 
-              <Link component={ RouterLink } to="/auth/register/">
+              <Link onClick={ cleanError } component={ RouterLink } to="/auth/register/">
 
                 Crear una cuenta
 

@@ -2,6 +2,7 @@ import { AddOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { startNewNote } from '../../store/journal/thunks';
+import { setClosed } from '../../store/sidebar/sideBarSlice';
 import { JounalLayout } from '../layout/JounalLayout';
 import { NoteView, NothingSelectedView } from '../views';
 
@@ -12,6 +13,7 @@ export const JournalPage = () => {
 
   const onClickNewNote = () => {
     dispatch( startNewNote() );
+    dispatch( setClosed() );
   };
   return (
     <JounalLayout>

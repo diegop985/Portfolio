@@ -63,11 +63,11 @@ export const NoteView = () => {
           sx={ { mb: 3 } }
           >
 
-          <Grid item sm={ 12 } md={ 6 }>
+          <Grid item xs={ 12 } sm={ 12 } md={ 6 }>
               <Typography fontSize={ '1.2rem' } fontWeight="light">{ dateString }</Typography>
           </Grid>
 
-          <Grid item sm={ 12 } md={ 6 } lg={ 6 } >
+          <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 } >
             <Grid container
                   alignItems="center"
                   direction="row"
@@ -79,21 +79,21 @@ export const NoteView = () => {
             <Grid item md={ 3 }>
               <Button onClick={ onDelete } disabled={ isSaving } color="error">
                 <DeleteOutline/>
-                <Box sx={ { display: { sm: 'none', md: 'block' } } }><Typography>Borrar</Typography></Box>
+                <Box sx={ { display: { xs: 'none', md: 'block' } } }><Typography>Borrar</Typography></Box>
               </Button>
             </Grid>
 
             <Grid item md={ 5 }>
               <Button onClick={ () => fileInputRef.current.click() } color='primary' disabled={ isSaving } sx={ { padding: 2 } }>
                 <UploadOutlined/>
-                <Box sx={ { display: { sm: 'none', md: 'block' } } }><Typography>Upload Image</Typography></Box>
+                <Box sx={ { display: { xs: 'none', md: 'block' } } }><Typography>Upload Image</Typography></Box>
               </Button>
             </Grid>
 
             <Grid item md={ 3 }>
                 <Button disabled={ isSaving } onClick={ onSaveNote } color="primary" sx={ { padding: 2 } }>
                 <SaveOutlined />
-                <Box sx={ { display: { sm: 'none', md: 'block' } } }><Typography>Guardar</Typography></Box>
+                <Box sx={ { display: { xs: 'none', md: 'block' } } }><Typography>Guardar</Typography></Box>
               </Button>
             </Grid>
             </Grid>

@@ -31,7 +31,7 @@ export const SideBar = ( { drawerWidth } ) => {
       >
       <Toolbar >
         <Typography variant='h6' noWrap component="div">{ displayName }</Typography>
-        <Button sx={ { ml: 2 } } onClick={ closeSideBar }>
+        <Button sx={ { ml: 2, display: { xs: 'block', sm: 'none' } } } onClick={ closeSideBar }>
           <ArrowBackIos />
         </Button>
       </Toolbar>

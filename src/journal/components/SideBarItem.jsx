@@ -4,6 +4,7 @@ import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { setActiveNote } from '../../store/journal/journalSlice';
+import { setClosed } from '../../store/sidebar/sideBarSlice';
 
 export const SideBarItem = ( { title, body, id, date, imageURLs = [] } ) => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export const SideBarItem = ( { title, body, id, date, imageURLs = [] } ) => {
 
   const setActiveNoteOnClick = () => {
     dispatch( setActiveNote( NoteActive ) );
+    dispatch( setClosed() );
   };
 
   return (
